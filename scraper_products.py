@@ -22,7 +22,7 @@ def send_to_zapier(data):
 # === Config ===
 BASE_URL = "https://www.gsmarena.com/"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
-LIMIT_PRODUCTS = 5   # ✅ scrape only first 5 products
+LIMIT_PRODUCTS = 30   # ✅ scrape only first 5 products
 
 
 def fetch_html(url):
