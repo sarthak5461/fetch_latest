@@ -1,0 +1,29 @@
+name: Run Scraper
+
+on:
+  schedule:
+    # Run once a day at 06:00 UTC
+    - cron: "0 6 * * *"
+    # 👉 change cron to control frequency
+    # every 2 days: "0 6 */2 * *"
+    # every 4 days: "0 6 */4 * *"
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python your_script_name.py
