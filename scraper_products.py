@@ -3,6 +3,22 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 
+# === Zapier Webhook URL ===
+ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/24642020/um0pk5v/"  # Replace with your Zapier URL
+
+def send_to_zapier(data):
+    """Send scraped data to Zapier webhook"""
+    try:
+        response = requests.post(ZAPIER_WEBHOOK_URL, json=data, timeout=10)
+        if response.status_code == 200:
+            print(f"✅ Sent {data.get('Phone Name')} to Zapier")
+        else:
+            print(f"❌ Failed to send data: {response.text}")
+    except Exception as e:
+        print(f"❌ Error sending to Zapier: {e}")
+
+
+
 # === Config ===
 BASE_URL = "https://www.gsmarena.com/"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
@@ -178,6 +194,10 @@ def main():
         }
 
         all_data.append(combined)
+
+        # 🔗 Send each product to Zapier
+        send_to_zapier(combined)
+
         time.sleep(2)
 
     df = pd.DataFrame(all_data)
@@ -188,6 +208,7 @@ def main():
         df.to_excel(writer, index=False)
 
     print(f"✅ Data saved to {output_filename}")
+
 
 
 if __name__ == "__main__":
