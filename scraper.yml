@@ -2,11 +2,8 @@ name: Run Scraper
 
 on:
   schedule:
-    # Run once a day at 06:00 UTC
-    - cron: "0 6 * * *"
-    # 👉 change cron to control frequency
-    # every 2 days: "0 6 */2 * *"
-    # every 4 days: "0 6 */4 * *"
+    # Run once a week at 12:00 AM
+    - cron: "0 0 * * 1"
   workflow_dispatch: # allows manual trigger
 
 jobs:
